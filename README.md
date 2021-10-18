@@ -1,4 +1,7 @@
 # mtgprice
+
+https://mtg-price-search.herokuapp.com/
+
 Magic card price search across multiple Canadian sources (Face to Face, Fusion Gaming, Gauntlet Games and Magic Stronghold).
 
 ## Setup

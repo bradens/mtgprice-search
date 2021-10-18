@@ -8,7 +8,7 @@ Magic card price search across multiple Canadian sources (Face to Face, Fusion G
 ## Usage
 
 - `node index.js '<CARD NAME HERE>'`
-  - ie. `node index.js 'scalding tarn'
+  - ie. `node index.js 'scalding tarn'`
 
 ## Sample Output
 

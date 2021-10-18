@@ -21,7 +21,7 @@ exports.fetch = (cardName) => {
             name: itName,
             set: itSet,
             stock: '1+',
-            price: parseFloat($(elem).find('article.card').data('product-price'))
+            price: parseFloat($(elem).find('article.card').data('product-price').toString().replace(/\,/,''))
           });
         });
         products.sort((a,b) => a.price - b.price);

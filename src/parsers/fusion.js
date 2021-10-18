@@ -25,7 +25,7 @@ exports.fetch = (cardName) => {
             name: $(elem).find('h4.name').text(),
             set: $(elem).find('.category').text(),
             stock: $(elem).find('input.qty').prop('max'),
-            price: parseFloat($(elem).find('form.add-to-cart-form').data('price').replace(priceFormat, ''))
+            price: parseFloat($(elem).find('form.add-to-cart-form').data('price').toString().replace(priceFormat, '').replace(/\,/,''))
           });
         });
         products.sort((a,b) => a.price - b.price);

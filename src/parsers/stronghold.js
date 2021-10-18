@@ -28,7 +28,7 @@ exports.fetch = (cardName) => {
             name: itName,
             set: itSet,
             stock: itStock,
-            price: itPrice
+            price: parseFloat(itPrice)
           });
         })
         products.sort((a,b) => a.price - b.price);

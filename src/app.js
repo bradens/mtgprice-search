@@ -4,16 +4,16 @@ const FaceFetch = require( './parsers/facetoface.js' );
 const StrongFetch = require( './parsers/stronghold.js' );
 
 const fetch = async (cardName) => {
-  const results = []
-  const gauntletResults = await GauntletFetch.fetch(cardName)
-  results.push(gauntletResults[0])
-  const fusionResults = await FusionFetch.fetch(cardName)
-  results.push(fusionResults[0])
-  const faceResults = await FaceFetch.fetch(cardName)
-  results.push(faceResults[0])
-  const strongholdResults = await StrongFetch.fetch(cardName)
-  results.push(strongholdResults[0])
-  console.log(results)
+  const promises = []
+  promises.push( GauntletFetch.fetch(cardName) )
+  promises.push( FusionFetch.fetch(cardName) )
+  promises.push( FaceFetch.fetch(cardName) )
+  promises.push( StrongFetch.fetch(cardName) )
+
+  const results = await Promise.all(promises)
+  const flatResults = results.flat()
+  flatResults.sort((a,b) => a.price - b.price)
+  return flatResults;
 }
 
 exports.fetch = fetch

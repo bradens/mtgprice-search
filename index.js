@@ -9,11 +9,12 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.render('home')
 })
 
-app.get('/card/:cardName', async (req, res) => {
-  const cardResults = await App.fetch(req.params.cardName)
+app.get('/card', async (req, res) => {
+  const cardResults = await App.fetch(req.query.cardName)
+  // res.json(cardResults)
   res.render('card', {cards: cardResults})
 })
 

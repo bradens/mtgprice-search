@@ -28,7 +28,8 @@ exports.fetch = (cardName) => {
             name: itName,
             set: itSet,
             stock: itStock,
-            price: parseFloat(itPrice)
+            price: parseFloat(itPrice),
+            link: `https://www.magicstronghold.com/store/category/${itSet}/item/${elem.inventoryID}`
           });
         })
         products.sort((a,b) => a.price - b.price);

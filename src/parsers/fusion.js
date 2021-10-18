@@ -25,7 +25,8 @@ exports.fetch = (cardName) => {
             name: $(elem).find('h4.name').text(),
             set: $(elem).find('.category').text(),
             stock: $(elem).find('input.qty').prop('max'),
-            price: parseFloat($(elem).find('form.add-to-cart-form').data('price').toString().replace(priceFormat, '').replace(/\,/,''))
+            price: parseFloat($(elem).find('form.add-to-cart-form').data('price').toString().replace(priceFormat, '').replace(/\,/,'')),
+            link: 'https://www.fusiongamingonline.com' + $(elem).find('.image-meta .image a').prop('href')
           });
         });
         products.sort((a,b) => a.price - b.price);

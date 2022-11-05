@@ -2,10 +2,18 @@
   <input type="text" id="cardName" name="cardName">
   <input type="submit" value="Submit">
 </form>
+<form action="/deal">
+  <input type="text" id="cardName" name="cardName">
+  <input type="submit" value="Deal">
+</form>
 
 <br>
 Results:
 <br><br>
+
+{{^cards}}
+ No deals found.
+{{/cards}}
 
 {{#cards}}
   ${{price}} - {{name}} - {{set}} - [{{store}}] - <a href="{{link}}" target="_blank">Link</a><br><br>

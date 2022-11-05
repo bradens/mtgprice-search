@@ -262,39 +262,62 @@ const edhHunterCards = [
 ];
 
 const fetch = async (cardName) => {
-  const promises = [];
-  promises.push(GauntletFetch.fetch(cardName));
-  promises.push(FusionFetch.fetch(cardName));
-  promises.push(FaceFetch.fetch(cardName));
-  promises.push(StrongFetch.fetch(cardName));
+  let resultsAll = [];
+  const cardsArr = cardName.split("|");
+  for (let i = 0; i < cardsArr.length; i++) {
+    try {
+      const promises = [];
+      promises.push(GauntletFetch.fetch(cardsArr[i]));
+      promises.push(FusionFetch.fetch(cardsArr[i]));
+      promises.push(FaceFetch.fetch(cardsArr[i]));
+      promises.push(StrongFetch.fetch(cardsArr[i]));
 
-  const results = await Promise.all(promises);
+      const results = await Promise.all(promises);
 
-  const flatResults = results.flat();
-  flatResults.sort((a, b) => a.price - b.price);
+      const flatResults = results.flat();
+      flatResults.sort((a, b) => a.price - b.price);
+      resultsAll = [...resultsAll, ...flatResults];
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
-  return flatResults;
+  return resultsAll;
 };
 
 const fetchDeal = async (cardName) => {
-  const promises = [];
-  promises.push(GauntletFetch.fetch(cardName));
-  promises.push(FusionFetch.fetch(cardName));
-  promises.push(FaceFetch.fetch(cardName));
-  promises.push(StrongFetch.fetch(cardName));
+  let resultsAll = [];
+  const cardsArr = cardName.split("|");
+  for (let i = 0; i < cardsArr.length; i++) {
+    try {
+      const promises = [];
+      promises.push(GauntletFetch.fetch(cardsArr[i]));
+      promises.push(FusionFetch.fetch(cardsArr[i]));
+      promises.push(FaceFetch.fetch(cardsArr[i]));
+      promises.push(StrongFetch.fetch(cardsArr[i]));
 
-  const results = await Promise.all(promises);
+      const results = await Promise.all(promises);
 
-  const flatResults = results.flat();
-  flatResults.sort((a, b) => a.price - b.price);
+      const flatResults = results.flat();
+      flatResults.sort((a, b) => a.price - b.price);
 
-  if (flatResults[0].price / flatResults[1].price > 0.75) return;
+      if (
+        flatResults[0] &&
+        flatResults[1] &&
+        flatResults[0].price / flatResults[1].price < 0.75
+      ) {
+        flatResults[0].name += ` (Deal ${
+          (flatResults[0].price / flatResults[1].price).toFixed(2) * 100
+        }%)`;
 
-  flatResults[0].name += ` (Deal ${
-    (flatResults[0].price / flatResults[1].price).toFixed(2) * 100
-  }%)`;
+        resultsAll = [...resultsAll, flatResults[0]];
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
-  return flatResults[0];
+  return resultsAll;
 };
 const dealHunter = async (key) => {
   let results = [];
@@ -334,11 +357,14 @@ const dealHunter = async (key) => {
       )
         continue;
 
-      flatResults[0].name = `${
-        ((flatResults[0].price / flatResults[1].price) * 100).toFixed(2)
-      }% - $${flatResults[0].price} - ${flatResults[0].name} (versus $${
-        flatResults[1].price
-      } at ${flatResults[1].store}) - ${flatResults[0].store}`;
+      flatResults[0].name = `${(
+        (flatResults[0].price / flatResults[1].price) *
+        100
+      ).toFixed(2)}% - $${flatResults[0].price} - ${
+        flatResults[0].name
+      } (versus $${flatResults[1].price} at ${flatResults[1].store}) - ${
+        flatResults[0].store
+      }`;
 
       results = [...results, flatResults[0]];
 

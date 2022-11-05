@@ -14,14 +14,24 @@ app.get('/', (req, res) => {
 
 app.get('/card', async (req, res) => {
   const cardResults = await App.fetch(req.query.cardName)
-  // res.json(cardResults)
 
   console.log(cardResults)
   res.render('card', {cards: cardResults})
 })
 app.get('/deal', async (req, res) => {
   const cardResults = await App.fetchDeal(req.query.cardName)
-  // res.json(cardResults)
+
+  console.log(cardResults)
+  res.render('card', {cards: cardResults})
+})
+app.get('/modernhunter', async (req, res) => {
+  const cardResults = await App.dealHunter('modern')
+
+  console.log(cardResults)
+  res.render('card', {cards: cardResults})
+})
+app.get('/edhhunter', async (req, res) => {
+  const cardResults = await App.dealHunter('edh')
 
   console.log(cardResults)
   res.render('card', {cards: cardResults})

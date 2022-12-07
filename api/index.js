@@ -1,4 +1,4 @@
-const App     = require( './src/app.js' )
+const App     = require( '../src/app.js' )
 const express = require('express')
 const exphbs  = require('express-handlebars');
 
@@ -30,6 +30,7 @@ app.get('/modernhunter', async (req, res) => {
   console.log(cardResults)
   res.render('card', {cards: cardResults})
 })
+
 app.get('/edhhunter', async (req, res) => {
   const cardResults = await App.dealHunter('edh')
 
@@ -37,6 +38,8 @@ app.get('/edhhunter', async (req, res) => {
   res.render('card', {cards: cardResults})
 })
 
-app.listen(port, () => {
-  console.log(`MTG Price Search listening at http://localhost:${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`MTG Price Search listening at http://localhost:${port}`)
+// })
+
+module.exports = app
